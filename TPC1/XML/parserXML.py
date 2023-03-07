@@ -62,7 +62,7 @@ texto = marcaE(texto)
 def marcaLinguas(texto):
     texto = re.sub(r'<text.* font="0">\s*</text>', r'', texto) # Remover linhas vazias antes de uma linguágem
     texto = re.sub(r'<text.* font="0">\s*;\s*</text>', r';', texto) # Remover linhas com apenas um ponto e vírgula e fonte 0
-    texto = re.sub(r'<text.* font="0">\s*(es|en|pt|la)\s*</text>\n', r'@ \1 ', texto) # Marcar liguágens do dicionário
+    texto = re.sub(r'<text.* font="0">\s*(es|en|pt|la)\s*</text>\n', r'@ \1', texto) # Marcar liguágens do dicionário
     texto = re.sub(r'<text.* font="7"><i>\s*(.*)</i></text>\n;\n', r'\1;', texto)
     texto = re.sub(r'<text.* font="7"><i>\s*(.*)</i></text>', r'\1', texto)
     return texto
@@ -71,24 +71,24 @@ def marcaLinguas(texto):
 texto = marcaLinguas(texto)
 
 
-def marcaSinonimos(texto):
-    texto = re.sub(r'\n<text.* font="0">\s*</text>', r'', texto) # Marcar sinonimos
-    texto = re.sub(r'\n<text.* font="0">\s*(.*)</text>', r'\1', texto) # Marcar sinonimos
-    texto = re.sub(r'<text.* font="0">\s*SIN\.- (.*)</text>', r'SIN. \1', texto) # Marcar sinonimos
-    texto = re.sub(r'\n<text.* font="5">\s*(.*)</text>', r'\1', texto) # Marcar sinonimos
-    texto = re.sub(r'<text.* font="5">\s*SIN\.- (.*)</text>', r'SIN. \1', texto) # Marcar sinonimos
-    return texto
-
-
-texto = marcaSinonimos(texto)
-
-
 def marcaVariacoes(texto):
     texto = re.sub(r'<text.* font="5">\s*VAR\.- (.*)</text>', r'VAR. \1', texto) # Marcar variações
     return texto
 
 
 texto = marcaVariacoes(texto)
+
+
+def marcaSinonimos(texto):
+    texto = re.sub(r'\n<text.* font="0">\s*</text>', r'', texto) # Marcar sinonimos
+    texto = re.sub(r'<text.* font="0">\s*SIN\.- (.*)</text>', r'SIN. \1', texto) # Marcar sinonimos
+    texto = re.sub(r'\n<text.* font="0">\s*(.*)</text>', r'\1', texto) # Marcar sinonimos
+    texto = re.sub(r'<text.* font="5">\s*SIN\.- (.*)</text>', r'SIN. \1', texto) # Marcar sinonimos
+    texto = re.sub(r'\n<text.* font="5">\s*(.*)</text>', r'\1', texto) # Marcar sinonimos
+    return texto
+
+
+texto = marcaSinonimos(texto)
 
 
 def marcaArea(texto):
@@ -110,8 +110,8 @@ texto = marcaVid(texto)
 
 def marcaNotas(texto):
     texto = re.sub(r'<text.* font="9">\s*</text>\n', r'', texto)
-    texto = re.sub(r'\n<text.* font="9">\s*(.*)</text>', r'\1', texto)
     texto = re.sub(r'<text.* font="9">\s*Nota\.-(.*)</text>', r'Nota. \1', texto)
+    texto = re.sub(r'\n<text.* font="9">\s*(.*)</text>', r'\1', texto)
     return texto
 
 
@@ -126,6 +126,9 @@ def removeSimbQuim(texto):
 
 
 texto = removeSimbQuim(texto)
+
+
+texto = re.sub(r' {2,}', r' ', texto)
 
 
 entradas = texto.split('###')
