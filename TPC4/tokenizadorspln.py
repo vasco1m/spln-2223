@@ -14,6 +14,22 @@ import re
 # Juntar linhas da mesma frase ✅
 # Uma frase por linha ✅
 
+def get_abrevituras():
+    file = open("conf/abrevituras.txt", "r")
+    abrevituras = file.read()
+    langs = abrevituras.split("#")
+    langs = remove_empty(langs)
+    abrev_dict = {}
+    for lang in langs:
+        ln,*abrevs = lang.split("\n")
+        abrevs = remove_empty(abrevs)
+        if len(abrevs) > 0:
+            abrev_dict[ln] = abrevs
+    return abrev_dict
+
+def remove_empty(l):
+    return [x.strip() for x in l if x.strip()]
+
 def tokenizer():
     text = ""
     for line in fileinput.input():

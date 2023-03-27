@@ -1,0 +1,15 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "tokenizadorspln"
+authors = [{'name'="Vasco Matos", 'email'="pg50796@uminho.pt"}]
+license = {file="LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+dependencies = ["spacy"]
+readme = "readme.md"
+
+[project.scripts]
+tok = "tokenizadorspln:main"
