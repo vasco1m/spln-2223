@@ -95,14 +95,14 @@ def tokenizer(input, abrev):
 
     text = re.sub(regex_nl5, r"\1 \2", text)
 
-    def abrev(a):
-            l = a[0].lower()
-            if l in abrev.keys():
-                return "#Abrev#" + abrev[l] + "#"
-            return a[0]
+    def ab(a):
+        l = a[0].lower()
+        if l in abrev.keys():
+            return "#Abrev#" + abrev[l] + "#"
+        return a[0]
 
     regex_abrev = r'\w+\.'
-    text = re.sub(regex_abrev, abrev, text)
+    text = re.sub(regex_abrev, ab, text)
 
     #regex_pont = r"([a-z0-9,;–])\s*([,;–])"
 
