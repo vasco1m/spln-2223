@@ -1,0 +1,1 @@
+O TP2 encontra-se neste [link](https://github.com/jtmr05/spln-2223/tree/main/TP2).
